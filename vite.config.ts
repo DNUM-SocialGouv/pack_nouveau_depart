@@ -8,6 +8,11 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     base: './',
+    css: {
+      lightningcss: {
+        errorRecovery: true,
+      },
+    },
     server: {
       cors: true,
       headers: {
