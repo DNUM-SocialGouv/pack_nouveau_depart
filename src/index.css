@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+}
+
+.pnd-preview {
+  width: 100%;
+  height: calc(100vh - 280px);
+  min-height: 420px;
+  border: 1px solid var(--border-default-grey);
+}
