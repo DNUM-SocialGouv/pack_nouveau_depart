@@ -1,10 +1,37 @@
-body {
+html,
+body,
+#root {
+  height: 100%;
   margin: 0;
 }
 
+body {
+  overflow: hidden;
+}
+
+.pnd-app {
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.pnd-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
 .pnd-preview {
+  display: block;
   width: 100%;
-  height: calc(100vh - 280px);
-  min-height: 420px;
-  border: 1px solid var(--border-default-grey);
+  height: 36rem;
+  min-height: 24rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-default-grey, #ddd);
+  background: #f6f6f6;
 }
