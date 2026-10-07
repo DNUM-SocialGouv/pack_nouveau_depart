@@ -56,112 +56,111 @@ export default function App() {
 
   return (
     <div className="pnd-app">
-      <div className="pnd-header">
-        <div className="fr-notice fr-notice--info">
-          <div className="fr-container">
-            <div className="fr-notice__body">
-              <p>
-                <span className="fr-notice__title">POC Pack Nouveau Départ</span>
-                <span className="fr-notice__desc">
-                  {' '}
-                  Données fictives — pas un annuaire grand public.
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="fr-container fr-pt-2w">
-          <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
-            <div className="fr-col-12 fr-col-md-7">
-              <h1 className="fr-h4 fr-mb-1v">
-                Guide opérationnel des ressources mobilisables
-              </h1>
-              <p className="fr-text--xs fr-mb-0">Vendée démo — régénérable depuis Grist</p>
-            </div>
-            <div className="fr-col-12 fr-col-md-5">
-              <ul className="fr-btns-group fr-btns-group--inline-reverse fr-btns-group--right fr-btns-group--sm">
-                <li>
-                  {data ? (
-                    <PDFDownloadLink
-                      className="fr-btn fr-btn--icon-left fr-icon-file-download-line"
-                      document={<GuideDocument data={data} />}
-                      fileName="guide-demo.pdf"
-                    >
-                      {({ loading: pdfLoading }) =>
-                        pdfLoading ? 'Préparation du PDF' : 'Télécharger le PDF'
-                      }
-                    </PDFDownloadLink>
-                  ) : null}
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className="fr-btn fr-btn--secondary"
-                    onClick={load}
-                  >
-                    Actualiser
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {source ? (
-            <ul className="fr-badges-group fr-mt-1w">
-              <li>
-                <p className="fr-badge fr-badge--info fr-badge--no-icon fr-badge--sm">
-                  {source === 'widget'
-                    ? 'Source : widget Grist'
-                    : 'Source : API Grist (local)'}
-                </p>
-              </li>
-              {data
-                ? data.thematiques.map((theme) => (
-                    <li key={theme.id}>
-                      <p className="fr-badge fr-badge--sm">{theme.libelle}</p>
-                    </li>
-                  ))
-                : null}
-              <li>
-                <p className="fr-badge fr-badge--success fr-badge--no-icon fr-badge--sm">
-                  {ficheCount} fiche{ficheCount > 1 ? 's' : ''}
-                </p>
-              </li>
-            </ul>
-          ) : null}
-
-          {error ? (
-            <div className="fr-alert fr-alert--error fr-mt-2w" role="alert">
-              <h2 className="fr-alert__title">Impossible de lire les données</h2>
-              <p>
-                Vérifiez l’URL du widget et le niveau d’accès (lecture). {error}
-              </p>
-            </div>
-          ) : null}
-
-          {loading ? <p className="fr-mt-2w fr-mb-0">Chargement…</p> : null}
-
-          {!loading && data && !error ? (
-            <p className="fr-text--xs fr-mt-1w fr-mb-1w">
-              Aperçu : feuilleter dans le cadre. Pour une page pleine, utilisez
-              Télécharger le PDF.
+      <div className="fr-notice fr-notice--info">
+        <div className="fr-container">
+          <div className="fr-notice__body">
+            <p>
+              <span className="fr-notice__title">POC Pack Nouveau Départ</span>
+              <span className="fr-notice__desc">
+                {' '}
+                Données fictives — pas un annuaire grand public.
+              </span>
             </p>
-          ) : null}
+          </div>
         </div>
       </div>
 
-      {previewUrl ? (
-        <div className="pnd-preview-slot">
+      <div className="fr-container fr-py-2w">
+        <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+          <div className="fr-col-12 fr-col-md-6">
+            <h1 className="fr-h4 fr-mb-1v">
+              Guide opérationnel des ressources mobilisables
+            </h1>
+            <p className="fr-text--xs fr-mb-0">Vendée démo — régénérable depuis Grist</p>
+          </div>
+          <div className="fr-col-12 fr-col-md-6">
+            <ul className="fr-btns-group fr-btns-group--inline-reverse fr-btns-group--right fr-btns-group--sm">
+              <li>
+                {data ? (
+                  <PDFDownloadLink
+                    className="fr-btn fr-btn--icon-left fr-icon-file-download-line"
+                    document={<GuideDocument data={data} />}
+                    fileName="guide-demo.pdf"
+                  >
+                    {({ loading: pdfLoading }) =>
+                      pdfLoading ? 'Préparation du PDF' : 'Télécharger le PDF'
+                    }
+                  </PDFDownloadLink>
+                ) : null}
+              </li>
+              <li>
+                {previewUrl ? (
+                  <a
+                    className="fr-btn fr-btn--secondary"
+                    href={previewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Ouvrir l’aperçu
+                  </a>
+                ) : null}
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="fr-btn fr-btn--tertiary"
+                  onClick={load}
+                >
+                  Actualiser
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {source ? (
+          <ul className="fr-badges-group fr-mt-2w">
+            <li>
+              <p className="fr-badge fr-badge--info fr-badge--no-icon fr-badge--sm">
+                {source === 'widget'
+                  ? 'Source : widget Grist'
+                  : 'Source : API Grist (local)'}
+              </p>
+            </li>
+            {data
+              ? data.thematiques.map((theme) => (
+                  <li key={theme.id}>
+                    <p className="fr-badge fr-badge--sm">{theme.libelle}</p>
+                  </li>
+                ))
+              : null}
+            <li>
+              <p className="fr-badge fr-badge--success fr-badge--no-icon fr-badge--sm">
+                {ficheCount} fiche{ficheCount > 1 ? 's' : ''}
+              </p>
+            </li>
+          </ul>
+        ) : null}
+
+        {error ? (
+          <div className="fr-alert fr-alert--error fr-mt-2w" role="alert">
+            <h2 className="fr-alert__title">Impossible de lire les données</h2>
+            <p>Vérifiez l’URL du widget et le niveau d’accès (lecture). {error}</p>
+          </div>
+        ) : null}
+
+        {loading ? <p className="fr-mt-2w">Chargement…</p> : null}
+
+        {previewUrl ? (
           <iframe
-            className="pnd-preview"
+            className="pnd-preview fr-mt-2w"
             title="Aperçu du guide PDF"
             src={`${previewUrl}#view=FitH`}
           />
-        </div>
-      ) : data && !error && !loading ? (
-        <p className="fr-container fr-mt-2w">Composition de l’aperçu PDF…</p>
-      ) : null}
+        ) : data && !error && !loading ? (
+          <p className="fr-mt-2w">Composition de l’aperçu PDF…</p>
+        ) : null}
+      </div>
     </div>
   )
 }
