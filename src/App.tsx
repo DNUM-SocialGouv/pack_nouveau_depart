@@ -56,30 +56,28 @@ export default function App() {
 
   return (
     <div className="pnd-app">
-      <div className="fr-notice fr-notice--info">
-        <div className="fr-container">
-          <div className="fr-notice__body">
-            <p>
-              <span className="fr-notice__title">POC Pack Nouveau Départ</span>
-              <span className="fr-notice__desc">
-                Données fictives. Guide d’orientation pour travailleurs sociaux, pas un
-                annuaire grand public.
-              </span>
-            </p>
+      <div className="pnd-header">
+        <div className="fr-notice fr-notice--info">
+          <div className="fr-container">
+            <div className="fr-notice__body">
+              <p>
+                <span className="fr-notice__title">POC Pack Nouveau Départ</span>
+                <span className="fr-notice__desc">
+                  {' '}
+                  Données fictives — pas un annuaire grand public.
+                </span>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="pnd-main">
-        <div className="fr-container fr-py-2w">
+        <div className="fr-container fr-pt-2w">
           <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
             <div className="fr-col-12 fr-col-md-7">
-              <h1 className="fr-h3 fr-mb-1w">
+              <h1 className="fr-h4 fr-mb-1v">
                 Guide opérationnel des ressources mobilisables
               </h1>
-              <p className="fr-text--sm fr-mb-0">
-                Vendée démo — extrait régénérable depuis Grist
-              </p>
+              <p className="fr-text--xs fr-mb-0">Vendée démo — régénérable depuis Grist</p>
             </div>
             <div className="fr-col-12 fr-col-md-5">
               <ul className="fr-btns-group fr-btns-group--inline-reverse fr-btns-group--right fr-btns-group--sm">
@@ -102,7 +100,7 @@ export default function App() {
                     className="fr-btn fr-btn--secondary"
                     onClick={load}
                   >
-                    Actualiser les données
+                    Actualiser
                   </button>
                 </li>
               </ul>
@@ -110,9 +108,9 @@ export default function App() {
           </div>
 
           {source ? (
-            <ul className="fr-badges-group fr-mt-2w">
+            <ul className="fr-badges-group fr-mt-1w">
               <li>
-                <p className="fr-badge fr-badge--info fr-badge--no-icon">
+                <p className="fr-badge fr-badge--info fr-badge--no-icon fr-badge--sm">
                   {source === 'widget'
                     ? 'Source : widget Grist'
                     : 'Source : API Grist (local)'}
@@ -126,7 +124,7 @@ export default function App() {
                   ))
                 : null}
               <li>
-                <p className="fr-badge fr-badge--success fr-badge--no-icon">
+                <p className="fr-badge fr-badge--success fr-badge--no-icon fr-badge--sm">
                   {ficheCount} fiche{ficheCount > 1 ? 's' : ''}
                 </p>
               </li>
@@ -134,40 +132,36 @@ export default function App() {
           ) : null}
 
           {error ? (
-            <div className="fr-alert fr-alert--error fr-mt-3w" role="alert">
+            <div className="fr-alert fr-alert--error fr-mt-2w" role="alert">
               <h2 className="fr-alert__title">Impossible de lire les données</h2>
               <p>
-                Dans Grist, ajoutez cette page en widget personnalisé (URL de l’app). En
-                local, renseignez <code>.env</code> et lancez <code>npm run dev</code>.{' '}
-                {error}
+                Vérifiez l’URL du widget et le niveau d’accès (lecture). {error}
               </p>
             </div>
           ) : null}
 
-          {loading ? <p className="fr-mt-3w">Chargement des tables Grist…</p> : null}
+          {loading ? <p className="fr-mt-2w fr-mb-0">Chargement…</p> : null}
 
-          {!loading && data ? (
-            <div className="fr-callout fr-mt-2w fr-mb-2w">
-              <h2 className="fr-callout__title">Aperçu du PDF</h2>
-              <p className="fr-callout__text">
-                Les 6 rubriques de chaque fiche viennent des colonnes Grist. Modifiez une
-                ligne, cliquez sur Actualiser, puis retéléchargez le PDF. Faites défiler
-                dans le cadre ci-dessous pour feuilleter les pages.
-              </p>
-            </div>
-          ) : null}
-
-          {previewUrl ? (
-            <iframe
-              className="pnd-preview"
-              title="Aperçu du guide PDF"
-              src={previewUrl}
-            />
-          ) : data && !error && !loading ? (
-            <p className="fr-mt-2w">Composition de l’aperçu PDF…</p>
+          {!loading && data && !error ? (
+            <p className="fr-text--xs fr-mt-1w fr-mb-1w">
+              Aperçu : feuilleter dans le cadre. Pour une page pleine, utilisez
+              Télécharger le PDF.
+            </p>
           ) : null}
         </div>
       </div>
+
+      {previewUrl ? (
+        <div className="pnd-preview-slot">
+          <iframe
+            className="pnd-preview"
+            title="Aperçu du guide PDF"
+            src={`${previewUrl}#view=FitH`}
+          />
+        </div>
+      ) : data && !error && !loading ? (
+        <p className="fr-container fr-mt-2w">Composition de l’aperçu PDF…</p>
+      ) : null}
     </div>
   )
 }
